@@ -20,17 +20,31 @@ int parse_int(char*);
 
 int main()
 {
+    // Lee una línea, elimina espacios, convierte a int → n = cantidad de elementos
     int n = parse_int(ltrim(rtrim(readline())));
 
+    // Lee la segunda línea y la divide por espacios → array de strings
     char** arr_temp = split_string(rtrim(readline()));
+    //  ^^ puntero a puntero: cada posición apunta a una cadena ("1", "2", "3"...)
 
+    // Reserva memoria dinámica para n enteros
     int* arr = malloc(n * sizeof(int));
+    //   ^^ puntero a int: apunta al primer elemento del array
 
     for (int i = 0; i < n; i++) {
+        // Convierte cada string a int
         int arr_item = parse_int(*(arr_temp + i));
+        // *(arr_temp + i)  ≡  arr_temp[i]  → acceso por aritmética de punteros
 
+        // Guarda el valor en la posición i del array
+        // *(arr + i)  ≡  arr[i]
         *(arr + i) = arr_item;
     }
+
+    for (int i = n - 1; i >= 0; i--) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 
     return 0;
 }
